@@ -1,0 +1,56 @@
+# O AGENTE DE ANDERSON ALVES MATOS (NUCLEO), PUBLICADO PELA PONTE.
+#
+# Montado pela ponte para esta contabilidade (agente versao 005ded6e3750).
+# Mudanca feita a mao aqui dura ate a proxima publicacao: mude na ponte.
+#
+# Ligar no Render, uma vez: New > Blueprint > este repositorio. O Render pede
+# so o que nao tem valor aqui: NUCLEO_SUPABASE_CHAVE, NUCLEO_PONTE_CHAVE.
+# As duas chaves internas (cofre e trilha) o proprio Render sorteia na criacao;
+# depois que o site e ligado ao agente, a ponte as declara "sync: false" e elas
+# nunca mais mudam: chave nova deixaria o cofre ilegivel e a trilha sem prova.
+services:
+  - type: web
+    name: nucleo-anderson-alves-matos
+    runtime: node
+    plan: free
+    region: virginia
+    numInstances: 1
+    buildCommand: node --version
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: NUCLEO_FUSO
+        value: America/Sao_Paulo
+      - key: NUCLEO_MODO_PASTA
+        value: agente
+      - key: NUCLEO_CAPTURA_CONCORRENCIA
+        value: "3"
+      - key: NUCLEO_SEFAZ_AMBIENTE
+        value: producao
+      - key: NUCLEO_ATRAS_DE_PROXY
+        value: "1"
+      - key: NUCLEO_REVISAR_EVENTOS
+        value: "1"
+      - key: NUCLEO_CHAVE_SEGREDOS
+        generateValue: true
+      - key: NUCLEO_CHAVE_AUDITORIA
+        generateValue: true
+      - key: NUCLEO_SUPABASE_URL
+        value: https://vsrbbicpgjcbigrpebqk.supabase.co
+      - key: NUCLEO_SUPABASE_CHAVE
+        sync: false
+      - key: NUCLEO_SUPABASE_BUCKET
+        value: nucleo
+      - key: NUCLEO_ADMIN_EMAIL
+        value: wemersonmirandasousa@gmail.com
+      - key: NUCLEO_ESCRITORIO
+        value: ANDERSON ALVES MATOS
+      - key: NUCLEO_PONTE_URL
+        value: https://ponte-sefaz.vercel.app
+      - key: NUCLEO_PONTE_CHAVE
+        sync: false
+      - key: NUCLEO_MARCA_JSON
+        value: "{\"escritorio\":{\"name\":\"ANDERSON ALVES MATOS\",\"brandName\":\"ANDERSON ALVES MATOS\"},\"branding\":{\"primary\":\"#6366f1\",\"secondary\":\"#1a1a2e\",\"accent\":\"#f59e0b\",\"theme\":\"light\"},\"telas\":{\"painel\":true,\"empresas\":true,\"certificados\":true,\"documentos\":true,\"conferencia\":true,\"alertas\":true,\"simples\":true,\"agenda\":true,\"equipe\":true},\"support\":{\"email\":\"Wemersondesenvolvedor@gmail.com\",\"whatsapp\":\"38998215816\",\"telefone\":\"38998215816\"},\"ui\":{\"credit\":\"Desenvolvido por Wemerson\"}}"

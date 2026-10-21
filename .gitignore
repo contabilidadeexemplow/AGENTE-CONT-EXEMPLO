@@ -1,0 +1,24 @@
+# Banco, uploads e chaves nunca entram no repositorio.
+data/
+*.db
+*.db-wal
+*.db-shm
+*.key
+.env
+data-demo/
+
+# Relatorios da medicao (npm run medir): CNPJ e dados do certificado do cliente
+medicao-*.json
+
+# Material de consulta que fica so neste computador: a extensao original (de
+# terceiro; o que o sistema usa dela esta em vendor/) e os pacotes antigos.
+EXT.ACAO CONTABIL P. BAIXAR NFSE SET 26/
+/nucleo-*.zip
+node_modules/
+
+# A unica chave privada que sobe: a do servidor de TESTE (fixtures), sem valor
+# fora da suite. Os testes de captura nao rodam sem ela.
+!fixtures/certs/servidor.key
+
+# Registro do agente local, so deste computador.
+agente/agente.log

@@ -1,0 +1,404 @@
+/*
+ * Visual do NUCLEO: Tailwind 4 compilado para public/styles.css
+ * (npm run css). Nada vem de fora em tempo de execucao: a CSP do servidor so
+ * aceita script, estilo e fonte do proprio endereco.
+ *
+ * Mesma base do template do escritorio que o Lovable gerou na PONTE
+ * (escritorio-template/src/styles.css): tokens em oklch, primaria indigo,
+ * destaque esmeralda, raio de 0.625rem, Inter Tight e componentes no desenho
+ * do shadcn/ui. A marcacao do app.js usa classes semanticas (card, head,
+ * badge, message...): elas sao montadas aqui com os utilitarios do Tailwind.
+ *
+ * Regra de caixa alta (a mesma do template): todo rotulo curto de
+ * identificacao - titulo, menu, aba, label de campo, botao, cabecalho de
+ * tabela, badge - aparece em CAIXA ALTA, pelo CSS (o acento sobrevive).
+ * Frase, ajuda e mensagem continuam em escrita normal.
+ */
+
+@import "tailwindcss" source(none);
+@source "../public/app.js";
+
+@font-face {
+  font-family: "Inter Tight";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("/fonts/inter-tight-latin-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Inter Tight";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("/fonts/inter-tight-latin-ext-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF,
+    U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-success: var(--success);
+  --color-success-tint: var(--success-tint);
+  --color-warning: var(--warning);
+  --color-warning-tint: var(--warning-tint);
+  --font-sans: "Inter Tight", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(0.958 0.004 247.9);
+  --foreground: oklch(0.235 0.043 277);
+  --card: oklch(1 0 0);
+  --primary: oklch(0.511 0.262 276.9);
+  --primary-foreground: oklch(0.99 0.002 247.9);
+  --secondary: oklch(0.21 0.034 264.7);
+  --muted: oklch(0.945 0.006 247.9);
+  --muted-foreground: oklch(0.551 0.027 264.4);
+  --accent: oklch(0.696 0.17 162.5);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.905 0.008 255.5);
+  --input: oklch(0.905 0.008 255.5);
+  --ring: oklch(0.511 0.262 276.9);
+  --success: oklch(0.696 0.17 162.5);
+  --success-tint: oklch(0.45 0.13 162.5);
+  --warning: oklch(0.828 0.189 84.4);
+  --warning-tint: oklch(0.45 0.14 84.4);
+  /* Nome antigo, ainda usado em estilos embutidos do app.js. */
+  --line: var(--border);
+  /* So o tema claro (decisao do dono, 14/10/2026). Havia um escuro, ligado por
+     `branding.theme = "dark"`; saiu. O `only` impede o celular com "escurecer
+     sites" de pintar uma versao escura por conta propria. */
+  color-scheme: only light;
+}
+
+/* ------------------------------------------------------------------ base */
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-background font-sans text-sm text-foreground antialiased;
+    font-feature-settings: "cv11", "ss01";
+  }
+  h1, h2, h3 { @apply m-0; }
+  p { @apply m-0; }
+  a { @apply text-primary underline-offset-4 hover:underline; }
+  code {
+    @apply rounded-sm border border-border bg-muted px-1.5 py-0.5 font-mono text-[12px] break-all;
+  }
+  pre { @apply m-0 font-mono text-[12px]; }
+  ol { @apply m-0 list-decimal pl-5; }
+  ol li { @apply py-1; }
+  fieldset { @apply m-0 min-w-0 border-0 p-0; }
+  ::selection { background: color-mix(in oklch, var(--primary) 20%, transparent); }
+
+  /* Campos no desenho do shadcn/ui (Input, Select, Textarea). */
+  input:not([type="checkbox"]):not([type="radio"]):not([type="file"]), select, textarea {
+    @apply h-9 w-full rounded-md border border-input bg-card px-3 text-sm text-foreground shadow-xs transition-colors
+      outline-none placeholder:text-muted-foreground
+      focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/20
+      disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  textarea { @apply h-auto min-h-24 py-2; }
+  input[type="file"] {
+    @apply w-full rounded-md border border-dashed border-input bg-muted/40 p-2 text-sm text-muted-foreground
+      file:mr-3 file:rounded-md file:border-0 file:bg-card file:px-3 file:py-1.5 file:text-xs file:font-semibold
+      file:uppercase file:tracking-[0.03em] file:text-foreground file:shadow-xs;
+  }
+  input[type="checkbox"], input[type="radio"] { @apply size-4 accent-primary; }
+
+  /* Botao: por padrao o "outline" do shadcn; .primary e o "default". */
+  button {
+    @apply inline-flex h-9 cursor-pointer items-center justify-center gap-2 rounded-md border border-input bg-card px-4
+      text-[12.5px] font-semibold uppercase tracking-[0.03em] whitespace-nowrap text-foreground shadow-xs
+      transition-colors hover:bg-muted
+      focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/25
+      disabled:pointer-events-none disabled:opacity-50;
+  }
+  button.primary {
+    @apply border-transparent bg-primary text-primary-foreground shadow-sm hover:bg-primary/90;
+  }
+  button.danger {
+    @apply border-transparent bg-destructive text-white shadow-sm hover:bg-destructive/90;
+  }
+  button.ghost { @apply border-transparent bg-transparent shadow-none hover:bg-muted; }
+}
+
+/* ------------------------------------------------------------ componentes */
+
+@layer components {
+  .muted { @apply text-muted-foreground; }
+  .hidden { display: none !important; }
+  .error-count { @apply font-semibold text-destructive; }
+
+  /* Rotulo curto em caixa alta, para usar na marcacao quando preciso. */
+  .caps { @apply font-semibold uppercase tracking-[0.03em]; }
+
+  /* ----- estrutura: cabecalho no topo (sem barra lateral) */
+  .layout { @apply flex min-h-screen flex-col; }
+
+  .topo { @apply sticky top-0 z-40 border-b border-border bg-card/95 backdrop-blur; }
+  /* Em tela pequena os grupos descem para uma segunda linha, em vez de sumir
+     espremidos entre a marca e o usuario. */
+  .faixa-identidade {
+    @apply mx-auto flex w-full max-w-[1480px] flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3
+      md:h-16 md:flex-nowrap md:px-6 md:py-0;
+  }
+  .brand { @apply flex shrink-0 items-center gap-3; }
+  .brand .brand-mark { @apply size-9 rounded-lg text-[15px]; }
+  .brand-texto { @apply flex flex-col leading-tight; }
+  .brand-texto strong { @apply text-[15px] font-bold tracking-[0.04em] uppercase; }
+  .brand-texto span { @apply text-[10.5px] font-medium tracking-[0.08em] text-muted-foreground uppercase; }
+
+  .brand-mark {
+    @apply grid place-items-center bg-primary font-bold text-primary-foreground shadow-sm;
+  }
+  .brand-logo { @apply block h-9 w-auto max-w-40 shrink-0 object-contain; }
+
+  /* Suporte, rodape e credito da marca do escritorio. */
+  .rodape { @apply grid gap-1 px-4 py-6 text-center text-xs text-muted-foreground; }
+  .rodape a { @apply text-muted-foreground underline; }
+
+  /* Grupos: navegacao principal, no meio do cabecalho. */
+  .faixa-grupos {
+    @apply order-last flex w-full min-w-0 items-center gap-1 overflow-x-auto md:order-none md:w-auto md:flex-1;
+    scrollbar-width: none;
+  }
+  .faixa-grupos::-webkit-scrollbar { display: none; }
+  .faixa-grupos .grupo {
+    @apply h-9 border-transparent bg-transparent px-3.5 text-[12.5px] text-muted-foreground shadow-none
+      hover:bg-muted hover:text-foreground;
+  }
+  .faixa-grupos .grupo.active { @apply bg-primary/10 text-primary hover:bg-primary/10; }
+
+  .user { @apply ml-auto flex shrink-0 items-center gap-3; }
+  .user .quem { @apply hidden text-right leading-tight sm:block; }
+  .user .quem strong { @apply block text-[13px] font-semibold; }
+  .user .quem p { @apply text-[11px] tracking-[0.04em] uppercase; }
+  .avatar {
+    @apply grid size-9 place-items-center rounded-full bg-secondary text-[12px] font-semibold text-white;
+  }
+  .user #sair { @apply h-8 px-3 text-[11.5px]; }
+
+  /* Telas do grupo: o TabsList do shadcn. */
+  .subnav { @apply border-t border-border bg-card; }
+  .faixa-telas {
+    @apply mx-auto flex w-full max-w-[1480px] items-center gap-1 overflow-x-auto px-4 py-2.5 md:px-6;
+    scrollbar-width: none;
+  }
+  .faixa-telas::-webkit-scrollbar { display: none; }
+  .faixa-telas .trilho { @apply inline-flex items-center gap-1 rounded-lg bg-muted p-1; }
+  .faixa-telas .nav {
+    @apply h-8 border-transparent bg-transparent px-3 text-[11.5px] text-muted-foreground shadow-none
+      hover:bg-card/70 hover:text-foreground;
+  }
+  .faixa-telas .nav.active { @apply bg-card text-foreground shadow-sm hover:bg-card; }
+
+  /* ----- pagina */
+  .main { @apply mx-auto w-full max-w-[1480px] flex-1 px-4 pt-6 pb-12 md:px-6 md:pt-7; }
+  .top { @apply mb-6 flex flex-wrap items-end justify-between gap-4; }
+  .top h1 { @apply text-[22px] font-semibold tracking-[0.02em] uppercase; }
+  .top p { @apply mt-1 text-[13.5px] text-muted-foreground; }
+  .content { @apply grid gap-6; }
+
+  /* ----- card */
+  .card { @apply overflow-hidden rounded-xl border border-border bg-card shadow-sm; }
+  .card > .head {
+    @apply flex flex-wrap items-start justify-between gap-4 border-b border-border px-6 py-4;
+  }
+  .card > .head h2 { @apply text-[13px] font-semibold tracking-[0.04em] uppercase; }
+  .card > .head p { @apply mt-1 text-[13px] text-muted-foreground; }
+  .card > .body { @apply p-6; }
+  .card > .body > * + * { @apply mt-4; }
+  .card > .body > .message + .message { @apply mt-2; }
+  .actions { @apply flex flex-wrap items-center gap-2; }
+  td .actions { @apply flex-nowrap; }
+  td .actions button, td .cel > button { @apply h-8 px-3 text-[11px]; }
+
+  .grid { @apply grid gap-6; }
+  .split { @apply grid gap-6 lg:grid-cols-2; }
+
+  /* Indicadores */
+  .metrics { @apply grid-cols-[repeat(auto-fit,minmax(190px,1fr))] gap-4; }
+  /* Fileira de cartoes da mesma altura: rotulo, valor numa linha so e a linha
+     de detalhe sempre presente. Numero grande; data e texto menores. */
+  .card.metric { @apply flex min-w-0 flex-col gap-1 p-5; }
+  .card.metric > span {
+    @apply text-[11px] font-medium tracking-[0.06em] text-muted-foreground uppercase;
+  }
+  .card.metric > strong {
+    @apply mt-1 truncate leading-tight font-semibold tracking-tight tabular-nums;
+  }
+  .card.metric > strong.grande { @apply text-[28px]; }
+  .card.metric > strong.medio { @apply text-[21px]; }
+  .card.metric > strong.pequeno { @apply text-[17px]; }
+  .card.metric > p { @apply truncate text-[12.5px]; }
+
+  /* ----- tabela (Table do shadcn) */
+  .table-wrap { @apply w-full overflow-x-auto; }
+  table { @apply w-full border-collapse text-[13px]; table-layout: auto; }
+  th {
+    @apply h-10 border-b border-border bg-muted/50 px-4 text-left align-middle text-[11px] font-semibold
+      tracking-[0.05em] whitespace-nowrap text-muted-foreground uppercase;
+  }
+  /* Cada registro numa linha so: nada quebra, o texto longo e cortado com
+     reticencias e aparece inteiro ao passar o mouse (dicasDeCorte). */
+  td { @apply border-b border-border px-2.5 py-2.5 align-middle whitespace-nowrap first:pl-6 last:pr-6; }
+  th { @apply px-2.5 first:pl-6 last:pr-6; }
+  td > .cel { @apply max-w-(--corte,none) truncate; }
+  td > .cel:has(> .actions) { @apply max-w-none overflow-visible; }
+  td > .cel br { display: none; }
+  td > .cel br + * { @apply ml-2; }
+  td > .cel code { @apply inline-block max-w-full truncate align-middle break-normal; }
+  tbody tr { @apply transition-colors hover:bg-muted/40; }
+  tbody tr:last-child td { @apply border-b-0; }
+  td strong { @apply font-semibold; }
+  td .muted { @apply text-[12.5px]; }
+
+  /* ----- badge */
+  .badge {
+    @apply inline-flex items-center rounded-full border border-transparent px-2.5 py-0.5 text-[10.5px]
+      font-semibold tracking-[0.04em] whitespace-nowrap uppercase;
+  }
+  .badge.ok { @apply bg-success/15 text-success-tint; }
+  .badge.warn { @apply bg-warning/20 text-warning-tint; }
+  .badge.danger { @apply bg-destructive/12 text-destructive; }
+  .badge.info { @apply bg-primary/10 text-primary; }
+  .badge.off { @apply bg-muted text-muted-foreground; }
+
+  /* ----- mensagem (Alert do shadcn) */
+  .message {
+    @apply rounded-lg border border-border bg-muted/40 px-4 py-3 text-[13.5px] leading-relaxed text-foreground;
+  }
+  .message + .message { @apply mt-2; }
+  .message.info { @apply border-primary/20 bg-primary/5; }
+  .message.ok { @apply border-success/30 bg-success/10 text-success-tint; }
+  .message.warn { @apply border-warning/50 bg-warning/12 text-warning-tint; }
+  .danger-text { @apply border-destructive/25 bg-destructive/8 text-destructive; }
+  .message strong { @apply font-semibold; }
+
+  /* ----- formulario */
+  .form-grid { @apply grid gap-x-5 gap-y-4 sm:grid-cols-2; }
+  .full { @apply col-span-full; }
+  .form-field { @apply grid content-start gap-1.5; }
+  .form-field > span, .form-field > legend {
+    @apply text-[11px] font-semibold tracking-[0.05em] text-muted-foreground uppercase;
+  }
+  .form-field > span .muted { @apply mt-0.5 block font-normal tracking-normal normal-case; }
+  .form-actions {
+    @apply col-span-full flex flex-wrap justify-end gap-2 border-t border-border pt-4;
+  }
+  .modal-body > .form-actions:first-child { @apply border-t-0 pt-0; }
+  .checks { @apply flex flex-wrap gap-x-5 gap-y-2.5 pt-1; }
+  .checks label { @apply flex items-center gap-2 text-[13.5px] text-foreground; }
+  .checks.coluna { @apply flex-col items-start gap-2; }
+
+  /* ----- lista de rotulo e valor (a Description List do shadcn): uma linha por item */
+  .dados { @apply m-0 grid grid-cols-1 sm:grid-cols-[13rem_1fr]; }
+  .dados > dt {
+    @apply border-b border-border pt-3 text-[11px] font-semibold tracking-[0.05em] text-muted-foreground uppercase
+      sm:py-3;
+  }
+  .dados > dd { @apply m-0 min-w-0 border-b border-border pt-1 pb-3 text-[13.5px] sm:py-3; }
+  .dados > dt:last-of-type, .dados > dd:last-of-type { @apply border-b-0; }
+  .dados > dd .muted { @apply text-[12.5px]; }
+  .dados > dd code { @apply break-all; }
+  .card > .dados { @apply px-6; }
+
+  /* ----- barra de filtros: uma linha de seletores, sem rotulo em cima */
+  /* Os seletores dividem a linha por igual; em tela estreita descem. */
+  .filtros {
+    @apply grid grid-cols-2 items-center gap-2 border-b border-border bg-muted/30 px-6 py-3 sm:grid-cols-3
+      xl:flex xl:flex-nowrap;
+  }
+  .filtros select, .filtros input {
+    @apply h-8 w-full min-w-0 pr-6 pl-2.5 text-[12.5px] xl:flex-1 xl:basis-0;
+  }
+  .filtros select[name="clienteId"] { @apply xl:flex-[1.5]; }
+  .filtros select:not(.ativo) { @apply text-muted-foreground; }
+  .filtros input[type="date"], .filtros .busca { @apply pr-2.5; }
+  .filtros input[type="date"] { @apply xl:w-[8.5rem] xl:flex-none; }
+  .filtros .busca { @apply xl:min-w-[9.5rem] xl:flex-[0.8]; }
+  .filtros .ativo { @apply border-primary/60 bg-primary/5 text-primary; }
+
+  /* ----- busca da lista */
+  .toolbar { @apply flex items-center gap-3 border-b border-border bg-muted/30 px-6 py-3; }
+  .search { @apply flex w-full max-w-md items-center gap-3; }
+  .search span { @apply text-[11px] font-semibold tracking-[0.05em] text-muted-foreground uppercase; }
+
+  .empty { @apply px-6 py-12 text-center text-[13.5px] text-muted-foreground; }
+  .loading { @apply px-6 py-12 text-center text-[13.5px] text-muted-foreground; }
+  .health-row {
+    @apply grid grid-cols-[minmax(150px,1fr)_auto] items-center gap-x-3 gap-y-1 border-b border-border py-3
+      last:border-b-0;
+  }
+  .health-row span { @apply col-span-full text-[12.5px] text-muted-foreground; }
+
+  /* ----- modal (Dialog do shadcn) */
+  .modal-backdrop {
+    @apply fixed inset-0 z-50 grid place-items-center bg-black/45 p-4 backdrop-blur-[2px];
+    animation: aparecer 0.15s ease-out;
+  }
+  .modal {
+    @apply max-h-[90vh] w-[min(680px,100%)] overflow-auto rounded-xl border border-border bg-card shadow-2xl;
+    animation: subir 0.18s ease-out;
+  }
+  .modal-head {
+    @apply sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-border bg-card px-6 py-4;
+  }
+  .modal-head h2 { @apply text-[14px] font-semibold tracking-[0.04em] uppercase; }
+  .modal-head [data-fechar] { @apply h-8 border-transparent bg-transparent px-3 text-[11px] shadow-none hover:bg-muted; }
+  .modal-body { @apply p-6; }
+  .modal-body > * + * { @apply mt-4; }
+  .modal-body > .form-grid > .message { @apply col-span-full; }
+
+  /* ----- aviso (Sonner) */
+  .toast {
+    @apply pointer-events-none fixed right-6 bottom-6 z-[60] max-w-sm translate-y-2 rounded-lg border border-border
+      border-l-4 border-l-primary bg-card px-4 py-3 text-[13.5px] text-foreground opacity-0 shadow-lg transition-all;
+  }
+  .toast.show { @apply pointer-events-auto translate-y-0 opacity-100; }
+  .toast[data-type="success"] { @apply border-l-success; }
+  .toast[data-type="error"] { @apply border-l-destructive; }
+  .toast[data-type="warn"] { @apply border-l-warning; }
+
+  /* ----- entrada */
+  .login {
+    @apply grid min-h-screen place-items-center p-6;
+    background:
+      radial-gradient(1200px 600px at 10% -10%, color-mix(in oklch, var(--primary) 14%, transparent), transparent 60%),
+      radial-gradient(900px 500px at 110% 110%, color-mix(in oklch, var(--accent) 14%, transparent), transparent 60%),
+      var(--background);
+  }
+  .login-card {
+    @apply grid w-full max-w-[400px] gap-4 rounded-2xl border border-border bg-card p-8 shadow-xl;
+  }
+  .login-card .brand-mark { @apply size-11 rounded-xl text-[18px]; }
+  .login-card .brand-logo { @apply h-12 max-w-56; }
+  .login-card h1 { @apply text-[20px] font-semibold tracking-[0.03em] uppercase; }
+  .login-card > p { @apply -mt-2 text-[13.5px] text-muted-foreground; }
+  .login-card button { @apply w-full; }
+  .login-card .muted { @apply text-center text-[12px]; }
+}
+
+@keyframes aparecer { from { opacity: 0; } to { opacity: 1; } }
+@keyframes subir { from { opacity: 0; transform: translateY(6px) scale(0.99); } to { opacity: 1; transform: none; } }

@@ -1,0 +1,35 @@
+{
+  "name": "nucleo-fiscal",
+  "version": "3.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Nucleo operacional fiscal com captura automatica de NFS-e (ADN) e de NF-e/CT-e (SEFAZ) por mTLS, manifestacao do destinatario, conferencia, apuracao do Simples, vigilancia e auditoria append-only.",
+  "engines": {
+    "node": ">=22.5"
+  },
+  "scripts": {
+    "start": "node --openssl-legacy-provider server.mjs",
+    "test": "node tests/teste-banco.mjs && node tests/teste-trilha.mjs && node tests/teste-nucleo.mjs && node --openssl-legacy-provider tests/teste-captura.mjs && node --openssl-legacy-provider tests/teste-sefaz.mjs && node --openssl-legacy-provider tests/teste-importacao.mjs && node --openssl-legacy-provider tests/teste-ponte.mjs && node --openssl-legacy-provider tests/teste-integracoes.mjs && node tests/teste-nuvem.mjs && node tests/teste-planilha.mjs && node tests/teste-prevencao.mjs && node tests/teste-lucro.mjs && node tests/teste-conferencia.mjs && node tests/teste-alertas.mjs && node tests/teste-simples.mjs && node --openssl-legacy-provider tests/teste-assinatura.mjs && node --openssl-legacy-provider tests/teste-telas.mjs",
+    "test:banco": "node tests/teste-banco.mjs",
+    "test:api": "node tests/teste-nucleo.mjs",
+    "fixtures": "node tests/gerar-fixtures.mjs",
+    "chaves": "node tests/gerar-chaves.mjs",
+    "agente": "node --openssl-legacy-provider agente/agente.mjs",
+    "test:captura": "node --openssl-legacy-provider tests/teste-captura.mjs",
+    "test:sefaz": "node --openssl-legacy-provider tests/teste-sefaz.mjs",
+    "test:importacao": "node --openssl-legacy-provider tests/teste-importacao.mjs",
+    "test:ponte": "node --openssl-legacy-provider tests/teste-ponte.mjs",
+    "demo:captura": "node --openssl-legacy-provider tests/demo-captura.mjs",
+    "medir": "node --openssl-legacy-provider ferramentas/medir-portal.mjs",
+    "test:nuvem": "node tests/teste-nuvem.mjs",
+    "test:planilha": "node tests/teste-planilha.mjs",
+    "test:prevencao": "node tests/teste-prevencao.mjs",
+    "test:telas": "node --openssl-legacy-provider tests/teste-telas.mjs",
+    "css": "node ferramentas/estilo.mjs"
+  },
+  "devDependencies": {
+    "@fontsource-variable/inter-tight": "5.3.0",
+    "@tailwindcss/cli": "4.3.3",
+    "tailwindcss": "4.3.3"
+  }
+}
